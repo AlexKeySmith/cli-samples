@@ -6,11 +6,31 @@ using Microsoft.Extensions.Logging;
 
 namespace HelloMvc
 {
+    using System;
+
+    using Services.Implementations;
+    using Services;
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // Create the container builder.
+            var containerBuilder = new ContainerBuilder();
+
+            // Register dependencies, populate the services from
+            // the collection, and build the container.
+            containerBuilder.RegisterType<HelloService>().As<IHelloService>();
+            containerBuilder.Populate(services);
+
+            var container = containerBuilder.Build();
+
+            // Return the IServiceProvider resolved from the container.
+            return container.Resolve<IServiceProvider>();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
