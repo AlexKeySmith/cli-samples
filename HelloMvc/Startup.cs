@@ -12,11 +12,18 @@ namespace HelloMvc
     using Services;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+
+    using HelloMvc.ActionFilters;
+
     public class Startup
     {
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(s => 
+            
+                s.Filters.Add(typeof(LogActionFilter)
+                
+            ));
 
             // Create the container builder.
             var containerBuilder = new ContainerBuilder();
@@ -49,6 +56,8 @@ namespace HelloMvc
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
 
             app.UseMvc();
         }

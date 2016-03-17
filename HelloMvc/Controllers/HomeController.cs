@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HelloMvc
 {
+    using HelloMvc.ActionFilters;
+
     public class HomeController : Controller
     {
         private readonly IHelloService helloService;
@@ -14,6 +16,7 @@ namespace HelloMvc
         }
 
         [HttpGet("/")]
+        [LogActionFilter]
         public IActionResult Index()
         {
             return View(new HelloModel { Message = this.helloService.Hello()});
