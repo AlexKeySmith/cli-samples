@@ -19,11 +19,12 @@ namespace HelloMvc
     {
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(s => 
-            
-                s.Filters.Add(typeof(LogActionFilter)
-                
-            ));
+            services.AddMvc(
+                s =>
+                {
+                    //passive filter i.e. LogActionFilterAttribute is just a placeholder from LogActionFilter to use.
+                    s.Filters.Add(typeof(LogActionFilter));
+                });
 
             // Create the container builder.
             var containerBuilder = new ContainerBuilder();

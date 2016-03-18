@@ -17,6 +17,7 @@ namespace HelloMvc
 
         [HttpGet("/")]
         [LogActionFilter]
+        [YouSmellActionFilter]
         public IActionResult Index()
         {
             return View(new HelloModel { Message = this.helloService.Hello()});
