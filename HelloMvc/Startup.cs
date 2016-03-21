@@ -14,7 +14,8 @@ namespace HelloMvc
     using Autofac.Extensions.DependencyInjection;
 
     using HelloMvc.ActionFilters;
-
+    using HelloMvc.Queries;
+    using Queries.Implementations;
     public class Startup
     {
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -32,6 +33,7 @@ namespace HelloMvc
             // Register dependencies, populate the services from
             // the collection, and build the container.
             containerBuilder.RegisterType<HelloService>().As<IHelloService>();
+            containerBuilder.RegisterType<HelloQuery>().As<IHelloQuery>();
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();

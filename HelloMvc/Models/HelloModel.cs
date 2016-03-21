@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HelloMvc.Models
 {
-    public class HelloModel
+    public class HelloModel : IHasMessage
     {
         public string Message { get; set; }
     }

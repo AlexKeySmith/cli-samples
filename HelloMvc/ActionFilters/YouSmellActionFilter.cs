@@ -19,9 +19,12 @@
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             var result = (ViewResult)context.Result;
-            var model = result.Model as HelloModel;
+            var model = result.Model as IHasMessage;
 
-            model.Message = $"{model.Message}  you smell";
+            if (model != null)
+            {
+                model.Message = $"{model.Message}  you smell";
+            }
 
             context.Result = result;
         }

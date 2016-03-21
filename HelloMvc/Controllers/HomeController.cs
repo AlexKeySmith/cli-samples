@@ -5,14 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace HelloMvc
 {
     using HelloMvc.ActionFilters;
+    using HelloMvc.Queries;
 
     public class HomeController : Controller
     {
-        private readonly IHelloService helloService;
+        private readonly IHelloQuery helloQuery;
 
-        public HomeController(IHelloService helloService)
+        public HomeController(IHelloQuery helloQuery)
         {
-            this.helloService = helloService;
+            this.helloQuery = helloQuery;
         }
 
         [HttpGet("/")]
@@ -20,7 +21,8 @@ namespace HelloMvc
         [YouSmellActionFilter]
         public IActionResult Index()
         {
-            return View(new HelloModel { Message = this.helloService.Hello()});
+            var model = this.helloQuery.Get();
+            return View(model);
         }
     }
 }
